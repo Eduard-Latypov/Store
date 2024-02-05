@@ -1,4 +1,3 @@
-{% extends 'main/base.html' %}
 
 {% load static %}
 
@@ -22,14 +21,14 @@
     <link rel="icon" type="image/png" sizes="16x16"
           href="{% static 'deps/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'deps/favicon/site.webmanifest' %}">
-    <title>Home</title>
+    <title>{{ title }}</title>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container">
-                <a class="navbar-brand" href="index.html">Home</a>
+                <a class="navbar-brand" href="{% url 'main:index' %}">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +44,9 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item  text-white" href="#">Доставка и оплата</a></li>
                                 <li><a class="dropdown-item  text-white" href="#">Контактная информация</a></li>
-                                <li><a class="dropdown-item  text-white" href="#">Про нас</a></li>
+                                <li><a class="dropdown-item  text-white"
+                                       href="{% url 'main:about' %}">Про
+                                    нас</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
