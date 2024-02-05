@@ -8,3 +8,7 @@ def index(request):
         "description": "Это домашняя страница сайта - Home!",
     }
     return render(request, "main/index.html", context)
+
+
+def about(request):
+    return render(request, "main/about.html")

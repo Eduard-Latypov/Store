@@ -1,26 +1,29 @@
+{% extends 'main/base.html' %}
+
 {% load static %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
 
-
-{% block content %}
-    <h1 class="mt-5 pt-5"><strong>Магазин мебели HOME</strong></h1>
-{% endblock %}
-
-{% block footer %}
-    <footer class="py-4 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; 2024 Частичное или полное
-                копирование информации с данного сайта для распространения на других ресурсах, в
-                том числе и бумажных без согласия автора, строго запрещено. Эдуард вас
-                покарает!</p>
-        </div>
-    </footer>
-{% endblock %}
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'deps/css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
+    <!-- Стиль footer-a для главной страницы -->
+    {% block css %}
+    {% endblock %}
+    <!-- Favicons for different platforms -->
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{% static 'deps/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{% static 'deps/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{% static 'deps/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'deps/favicon/site.webmanifest' %}">
+    <title>Home</title>
+</head>
 
 <body>
     <header>
@@ -185,10 +188,14 @@
                 </div>
                 <div class="col-lg-10">
                     <!-- Контент на странице -->
+                    {% block content %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
     </section>
+    {% block footer %}
+    {% endblock %}
     <script src="{% static 'deps/js/jquery/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'deps/js/jquery-events.js' %}"></script>
     <script src="{% static 'deps/js/jquery-ajax.js' %}"></script>
