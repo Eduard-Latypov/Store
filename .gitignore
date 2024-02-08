@@ -134,5 +134,8 @@ dmypy.json
 
 cert.crt
 cert.key
-/goods/migrations/
-/main/migrations/
+
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+media/
