@@ -6,6 +6,7 @@ from .models import Categories, Products
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):
     list_display = ["name", "slug"]
+    prepopulated_fields = {"slug": ["name"]}
 
 
 @admin.register(Products)
@@ -20,3 +21,4 @@ class ProductAdmin(admin.ModelAdmin):
         "discount",
         "category",
     ]
+    prepopulated_fields = {"slug": ["name"]}

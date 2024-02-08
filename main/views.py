@@ -1,11 +1,14 @@
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 
+from goods.models import Categories
+
 
 def index(request):
+    categories = Categories.objects.all()
     context = {
-        "title": "Home",
-        "description": "Это домашняя страница сайта - Home!",
+        "title": "Home - Главная",
+        "categories": categories,
     }
     return render(request, "main/index.html", context)
 
