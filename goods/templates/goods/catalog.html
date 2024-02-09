@@ -73,7 +73,7 @@
                     <img src="{% static 'deps/images/Not found image.png' %}" class="card-img-top" alt="...">
                 {% endif %}
                 <div class="card-body">
-                    <a href="{% url 'catalog:product' product.slug %}">
+                    <a href="{{ product.get_absolute_url }}">
                         <p class="card-title">
                             {% autoescape off %}
                                 {% if product.headline %}
@@ -126,7 +126,10 @@
             <div class="custom-shadow d-flex">
 
                 <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
-                <a class="page-link" href="{% if goods.has_previous %}?{% change_params page=goods.previous_page_number %}{% else %}#{% endif %}">Назад</a>
+                <a class="page-link" href="{% if goods.has_previous %}
+                {% change_params page=goods.previous_page_number %}
+                {% else %}#
+                {% endif %}">Назад</a>
                 </li>
 
                 {% for page in goods.paginator.page_range %}
