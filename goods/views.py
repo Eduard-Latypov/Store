@@ -1,39 +1,48 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import Categories, Products
-from .utils import q_search
+from django.http import Http404
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 
-def catalog(request, slug):
-    queryset = Products.objects.select_related("category")
-    if slug == "vse-tovary":
-        goods = queryset
-    else:
-        goods = get_list_or_404(queryset, category__slug=slug)
+from goods.models import Products
+from goods.utils import q_search
 
-    query = request.GET.get("q", None)
+
+def catalog(request, category_slug=None):
+
+    page = request.GET.get("page", 1)
     on_sale = request.GET.get("on_sale", None)
     order_by = request.GET.get("order_by", None)
-    if query:
+    query = request.GET.get("q", None)
+
+    if category_slug == "vse-tovary":
+        goods = Products.objects.all()
+    elif query:
         goods = q_search(query)
+    else:
+        goods = Products.objects.filter(category__slug=category_slug)
+        if not goods:
+            raise Http404("Not Found")
+
     if on_sale:
-        goods.filter(discount__gt=0)
-    if order_by:
-        goods.order_by(order_by)
+        goods = goods.filter(discount__gt=0)
 
-    category = goods[0].category
+    if order_by and order_by != "default":
+        goods = goods.order_by(order_by)
+
     paginator = Paginator(goods, 3)
-    page_num = request.GET.get("page", 1)
-    current_page = paginator.get_page(page_num)
+    current_page = paginator.page(int(page))
+
     context = {
-        "goods": current_page,
-        "category": category,
         "title": "Home - Каталог",
+        "goods": current_page,
+        "slug_url": category_slug,
     }
-    return render(request, "goods/catalog.html", context=context)
+    return render(request, "goods/catalog.html", context)
 
 
-def product_detail(request, slug):
-    product = get_object_or_404(Products, slug=slug)
+def product(request, product_slug):
+    product = Products.objects.get(slug=product_slug)
+
     context = {"product": product}
+
     return render(request, "goods/product.html", context=context)

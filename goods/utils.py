@@ -38,3 +38,5 @@ def q_search(query):
             stop_sel="</span>",
         )
     )
+
+    return result
