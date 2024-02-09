@@ -139,3 +139,4 @@ cert.key
 !**/migrations
 !**/migrations/__init__.py
 media/
+fixtures/
