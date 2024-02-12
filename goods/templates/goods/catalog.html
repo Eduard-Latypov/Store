@@ -56,7 +56,7 @@
     {% if request.GET.q %}
     <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
     {% if not goods %}
-        <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+        <link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">
         <h2 class="mt-4">По запросу ничего не найдено</h2>
     {% endif %}
     {% endif %}
@@ -67,10 +67,10 @@
                 {% if product.image %}
                     <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                 {% else %}
-                    <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
+                    <img src="{% static 'deps/images/Not found image.png' %}" class="card-img-top" alt="...">
                 {% endif %}
                 <div class="card-body">
-                    <a href="{% url "catalog:product" product.slug %}">
+                    <a href="{% url 'catalog:product' product.slug %}">
                         <p class="card-title">
                             {% autoescape off %}
                                 {% if product.headline %}
@@ -101,10 +101,10 @@
                             <p><strong>{{ product.price }} $</strong></p>
                         {% endif %}
 
-                        <a href="{% url "cart:cart_add" %}" class="btn add-to-cart"
+                        <a href="{% url 'cart:cart_add' %}" class="btn add-to-cart"
                         data-product-id="{{ product.id }}">
                             {% csrf_token %}
-                            <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon"
+                            <img class="mx-1" src="{% static 'deps/icons/cart-plus.svg' %}" alt="Catalog Icon"
                                 width="32" height="32">
                         </a>
                     </div>
@@ -148,7 +148,10 @@
 {% block footer %}
 <footer class="py-4 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Home Python Hub Studio 2023</p>
+        <p class="m-0 text-center text-white">Copyright &copy; 2024 Частичное или полное
+                копирование информации с данного сайта для распространения на других ресурсах, в
+                том числе и бумажных без согласия автора, строго запрещено. Эдуард вас
+                покарает!</p>
     </div>
 </footer>
 {% endblock  %}
