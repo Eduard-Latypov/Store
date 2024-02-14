@@ -21,4 +21,7 @@ class ProductAdmin(admin.ModelAdmin):
         "discount",
         "category",
     ]
+    list_editable = ["discount"]
+    search_fields = ["name", "description"]
+    list_filter = ["discount", "quantity", "category"]
     prepopulated_fields = {"slug": ["name"]}

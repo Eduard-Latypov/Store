@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from carts.models import Cart
 from .forms import UserLoginForm, UserRegisterForm, UserUpdateForm
 
 
@@ -15,11 +16,22 @@ class UserLoginView(LoginView):
     form_class = UserLoginForm
 
     def form_valid(self, form):
+        session_key = self.request.session.session_key
+        self._set_carts_from_session_to_user(form)
         response = super().form_valid(form)
         messages.success(
             self.request, f"{self.request.user.username}, Вы успешно вошли в аккаунт"
         )
+
         return response
+
+    def _set_carts_from_session_to_user(self, form):
+        session_key = self.request.session.session_key
+        if session_key:
+            user = form.get_user()
+            carts = Cart.objects.filter(session_key=session_key)
+            if carts.exists():
+                carts.update(user=user)
 
 
 # def login(request):
@@ -47,7 +59,11 @@ def registration(request):
         form = UserRegisterForm(data=request.POST)
         if form.is_valid():
             user = form.save()
+            session_key = request.session.session_key
             auth.login(request, user)
+
+            if session_key:
+                Cart.objects.filter(session_key=session_key).update(user=user)
             messages.success(
                 request,
                 message=f"{user.username}, Вы успешно зарегистрировались и вошли в аккаунт",
