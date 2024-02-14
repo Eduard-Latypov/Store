@@ -1,12 +1,14 @@
 {% load static %}
+{% load cart_tags %}
 
+{% user_carts request as carts %}
 
 
 
 <div>
     <button type="button" class="btn btn-dark btn-secondary d-flex" id="modalButton"
         aria-expanded="false">
-        <img class="mx-1" src="{% static "deps/icons/basket2-fill.svg" %}" alt="Catalog Icon" width="24"
+        <img class="mx-1" src="{% static 'deps/icons/basket2-fill.svg' %}" alt="Catalog Icon" width="24"
             height="24">
         <span id="goods-in-cart-count">{{ carts.total_quantity }}</span>
     </button>
@@ -24,6 +26,7 @@
                 <h3 class="text-center mb-4">Корзина</h3>
                 <div class="container" id="cart-items-container">
                     <!-- Разметка корзины -->
+                    {% include "carts/includes/included_cart.html" %}
                     <!-- Закончилась разметка корзины -->
                 </div>
             </div>
