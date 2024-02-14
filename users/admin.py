@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from carts.admin import CartTabInline
+from orders.admin import OrderTabularAdmin
 from .models import User
 
 
@@ -9,4 +10,4 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ["username", "first_name", "last_name", "email"]
     list_display_links = ["username", "email"]
     search_fields = ["username", "email", "last_name"]
-    inlines = [CartTabInline]
+    inlines = [CartTabInline, OrderTabularAdmin]
